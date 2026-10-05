@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>BS Smart – Menu</title>
+    <meta name="description"
+        content="BS Smart – Fast Food & Restaurant, Sector 5-J, North Karachi. See our full menu and hot deals.">
+    <meta name="theme-color" content="#0d0d0d">
+    <meta property="og:title" content="BS Smart – Menu">
+    <meta property="og:description" content="Burgers, pizza, BBQ and Desi – hot and fresh.">
+    <meta property="og:image" content="https://smart-ji.github.io/BS-SMART/assets/img/logo.jpeg">
+    <link rel="icon" type="image/jpeg" href="assets/img/logo.jpeg">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <div id="splash"><img src="assets/img/logo.jpeg" alt="">
+        <p>BS Smart</p>
+        <div class="bar"><i></i></div>
+    </div>
+    <div id="progress"></div>
+
+    <nav class="nav">
+        <div class="wrap nav-in">
+            <a class="brand" href="#top">
+                <img src="assets/img/logo.jpeg" alt="BS Smart logo">
+                <span>BS Smart</span>
+            </a>
+            <div class="nav-right">
+                <button type="button" id="darkBtn" class="round" aria-label="Toggle dark mode"
+                    title="Dark mode">🌙</button>
+                <a class="nav-cta" href="tel:03452183819">📞 Call us</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" id="top">
+        <div class="spot"></div>
+        <div class="floaters" id="floaters"></div>
+        <div class="wrap hero-in">
+            <div class="hero-text">
+                <span class="greet" id="greet"></span>
+                <h1><span class="w" style="--i:0">Good</span> <span class="w" style="--i:1">Food,</span><br><span
+                        class="w" style="--i:2">Good</span> <span class="w" style="--i:3">Mood.</span></h1>
+                <p>Burgers, pizza, BBQ aur Desi — har bite mein fresh taste aur zabardast flavor! Apni pasand ke
+                    delicious items choose karein aur waiter ko order bata dein.</p>
+                <div class="hero-cta">
+                    <button type="button" class="btn-gold magnetic" id="menuBtn">🍔 View menu</button>
+                    <button type="button" class="btn-ghost magnetic" id="dealsBtn">🔥 Hot deals</button>
+                    <a class="btn-ghost magnetic" href="tel:03452183819">📞 Call us</a>
+                    <a class="btn-ghost magnetic" href="https://maps.app.goo.gl/kD19U42DTTHjdht58" target="_blank"
+                        rel="noopener">📍 Map</a>
+                </div>
+                <div class="meta">
+                    <span class="pill">Fast Food &amp; Restaurant</span>
+                    <span class="pill">Dine-in · Takeaway · Delivery</span>
+                    <span class="pill">📍 Sector 5-J, North Karachi, near Kala School</span>
+                </div>
+            </div>
+            <div class="logo-wrap" id="logoWrap">
+                <span class="ring"></span>
+                <img class="hero-logo" src="assets/img/logo.jpeg" alt="BS Smart – Good Food Good Mood">
+            </div>
+        </div>
+    </header>
+
+    <div class="ticker" aria-hidden="true">
+        <div class="ticker-track" id="tickerTrack"></div>
+    </div>
+
+    <div class="wrap">
+        <section id="menuSec">
+            <h2 class="sec-title" id="secTitle">Our menu</h2>
+
+            <div class="vswitch" id="vswitch" data-view="menu" role="group" aria-label="Menu or Deals">
+                <span class="vs-pill"></span>
+                <button type="button" class="vs-btn" data-view="menu" aria-pressed="true">🍔 Menu <b
+                        id="cntMenu">0</b></button>
+                <button type="button" class="vs-btn" data-view="deals" aria-pressed="false">🔥 Deals <b
+                        id="cntDeals">0</b></button>
+            </div>
+
+            <div class="special" id="special"></div>
+
+            <div class="search">
+                <input id="search" type="search" placeholder="Search food (e.g. burger, pizza, biryani)"
+                    autocomplete="off" aria-label="Search food">
+            </div>
+            <div class="tabs" id="tabs" role="group" aria-label="Menu categories"></div>
+            <div class="grid" id="menu"></div>
+
+            <p class="order-note"><img src="assets/img/logo.jpeg" alt=""> Ready to order? Please tell our waiter what
+                you would like.</p>
+        </section>
+    </div>
+
+    <section class="wrap" id="why">
+        <h2 class="sec-title">Why BS Smart?</h2>
+        <div class="features" id="features">
+            <div class="feat" style="--i:0"><i>🔥</i>
+                <h3>Piping hot</h3>
+                <p>Freshly prepared for every order.</p>
+            </div>
+            <div class="feat" style="--i:1"><i>🥬</i>
+                <h3>Fresh taste</h3>
+                <p>Fresh ingredients, great flavor.</p>
+            </div>
+            <div class="feat" style="--i:2"><i>⚡</i>
+                <h3>Fast service</h3>
+                <p>Dine-in, takeaway or delivery.</p>
+            </div>
+            <div class="feat" style="--i:3"><i>💰</i>
+                <h3>Fair prices</h3>
+                <p>Save more with our deals.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="foot">
+        <div class="wrap">
+            <img class="foot-logo" src="assets/img/logo.jpeg" alt="BS Smart logo">
+            <div class="foot-info">
+                BS Smart – Fast Food &amp; Restaurant · Good Food, Good Mood<br>
+                <a href="https://maps.app.goo.gl/kD19U42DTTHjdht58" target="_blank" rel="noopener">
+                    📍 Sector 5-J, North Karachi, near Kala School
+                </a>
+                M Fareed: 0345-2183819 · M Haseeb: 0312-2029588
+            </div>
+            <div class="social foot-social">
+                <a href="https://www.facebook.com/YOUR_PAGE" target="_blank" rel="noopener noreferrer"
+                    aria-label="Facebook"><svg viewBox="0 0 24 24">
+                        <path d="M15 3h-2.5A4.5 4.5 0 0 0 8 7.5V10H5v4h3v7h4v-7h3l1-4h-4V7.5c0-.3.2-.5.5-.5H15z" />
+                    </svg></a>
+                <a href="https://www.instagram.com/YOUR_USERNAME" target="_blank" rel="noopener noreferrer"
+                    aria-label="Instagram"><svg viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="18" height="18" rx="5" />
+                        <circle cx="12" cy="12" r="4" />
+                        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                    </svg></a>
+                <a href="https://www.tiktok.com/@bssmart79?lang=en" target="_blank" rel="noopener noreferrer"
+                    aria-label="TikTok"><svg viewBox="0 0 24 24">
+                        <path d="M15 3v11a4 4 0 1 1-4-4" />
+                        <path d="M15 3c0 2.5 2 4.5 4.5 4.5" />
+                    </svg></a>
+            </div>
+        </div>
+        <div class="wrap copy">© <span id="yr"></span> BS Smart · Sector 5-J, North Karachi</div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>
