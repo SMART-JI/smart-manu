@@ -415,6 +415,9 @@ const DEFAULT_MENU = [
     img: ""
   }
 ];
+];
+
+const MENU = JSON.parse(JSON.stringify(DEFAULT_MENU));
 
 // =========================================================
 //  HELPERS
