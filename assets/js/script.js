@@ -9,415 +9,72 @@ const RESTAURANT = {
   phone: "0345-2183819 / 0312-2029588"
 };
 const CURRENCY = "Rs.";
-const LOGO = "assets/img/logo.jpeg";   // shown for items without a photo
+const LOGO = "assets/img/logo.jpeg";
 
-// Keep this list the same as your main site's menu.
-// Items with category "Deals" only show in the Deals view.
-const DEFAULT_MENU = [
-  {
-    id: 1,
-    cat: "FastFood",
-    name: "Zinger Burger",
-    desc: "Crispy chicken zinger burger",
-    price: 300,
-    img: ""
-  },
-  {
-    id: 2,
-    cat: "FastFood",
-    name: "Zinger Burger Cheese",
-    desc: "Zinger burger with cheese",
-    price: 350,
-    img: ""
-  },
-  {
-    id: 3,
-    cat: "FastFood",
-    name: "Zinger Burger Jumbo",
-    desc: "Jumbo crispy chicken zinger burger",
-    price: 450,
-    img: ""
-  },
-  {
-    id: 4,
-    cat: "FastFood",
-    name: "Beef Burger",
-    desc: "Juicy beef burger",
-    price: 300,
-    img: ""
-  },
-  {
-    id: 5,
-    cat: "FastFood",
-    name: "Beef Burger Cheese",
-    desc: "Beef burger with cheese",
-    price: 350,
-    img: ""
-  },
-  {
-    id: 6,
-    cat: "FastFood",
-    name: "Club Sandwich",
-    desc: "Fresh chicken club sandwich",
-    price: 400,
-    img: ""
-  },
-  {
-    id: 7,
-    cat: "FastFood",
-    name: "Chicken Sandwich",
-    desc: "Delicious chicken sandwich",
-    price: 450,
-    img: ""
-  },
-  {
-    id: 8,
-    cat: "FastFood",
-    name: "BBQ Sandwich",
-    desc: "Chicken sandwich with BBQ flavor",
-    price: 450,
-    img: ""
-  },
-  {
-    id: 9,
-    cat: "FastFood",
-    name: "Plan Fries",
-    desc: "Fries",
-    price: 150,
-    img: ""
-  },
-  {
-    id: 10,
-    cat: "FastFood",
-    name: "Mayo Fries",
-    desc: "Mayo Yammi Fries",
-    price: 200,
-    img: ""
-  },
-  {
-    id: 11,
-    cat: "FastFood",
-    name: "Cheese Fries",
-    desc: "Cheese Yammi Fries",
-    price: 200,
-    img: ""
-  },
-  {
-    id: 12,
-    cat: "EXTRAS",
-    name: "Paratha (SMALL)",
-    desc: " Yammi ",
-    price: 50,
-    img: ""
-  },
-  {
-    id: 13,
-    cat: "EXTRAS",
-    name: "Paratha (LARGE)",
-    desc: "Yammi",
-    price: 100,
-    img: ""
-  },
-  {
-    id: 13,
-    cat: "EXTRAS",
-    name: "Chapati",
-    desc: "Yammi",
-    price: 20,
-    img: ""
-  },
-  {
-    id: 14,
-    cat: "BBQ",
-    name: "Zinger Roll",
-    desc: "Crispy chicken zinger roll",
-    price: 150,
-    img: ""
-  },
-  {
-    id: 15,
-    cat: "BBQ",
-    name: "Zinger Jumbo Roll",
-    desc: "Jumbo crispy chicken zinger roll",
-    price: 250,
-    img: ""
-  },
-  {
-    id: 16,
-    cat: "BBQ",
-    name: "Boti Roll",
-    desc: "Chicken boti roll",
-    price: 150,
-    img: ""
-  },
-  {
-    id: 17,
-    cat: "BBQ",
-    name: "Kabab Roll",
-    desc: "Chicken kabab roll",
-    price: 150,
-    img: ""
-  },
-  {
-    id: 18,
-    cat: "BBQ",
-    name: "Chicken Roll",
-    desc: "Chicken roll",
-    price: 150,
-    img: ""
-  },
-  {
-    id: 19,
-    cat: "BBQ",
-    name: "Chicken Mayo Garlic Roll",
-    desc: "Chicken roll with mayo garlic sauce",
-    price: 150,
-    img: ""
-  },
-  {
-    id: 20,
-    cat: "BBQ",
-    name: "Chicken Malai Boti Roll",
-    desc: "Creamy chicken malai boti roll",
-    price: 150,
-    img: ""
-  },
-  {
-    id: 21,
-    cat: "BBQ",
-    name: "Chicken Crispy Roll",
-    desc: "Crispy chicken roll",
-    price: 150,
-    img: ""
-  },
-  {
-    id: 22,
-    cat: "Pizza",
-    name: "Chicken Fajita (SMALL)",
-    desc: "Chicken fajita pizza",
-    price: 300,
-    img: ""
-  },
-  {
-    id: 23,
-    cat: "Pizza",
-    name: "Chicken Fajita (MEDIUM)",
-    desc: "Chicken fajita pizza",
-    price: 500,
-    img: ""
-  },
-  {
-    id: 24,
-    cat: "Pizza",
-    name: "Chicken Fajita (LARGE)",
-    desc: "Chicken fajita pizza",
-    price: 700,
-    img: ""
-  },
+// Menu list. Items with category "Deals" only show in the Deals view.
+// Har item ka id alag hona chahiye.
+const MENU = [
+  { id: 1, cat: "FastFood", name: "Zinger Burger", desc: "Crispy chicken zinger burger", price: 300, img: "" },
+  { id: 2, cat: "FastFood", name: "Zinger Burger Cheese", desc: "Zinger burger with cheese", price: 350, img: "" },
+  { id: 3, cat: "FastFood", name: "Zinger Burger Jumbo", desc: "Jumbo crispy chicken zinger burger", price: 450, img: "" },
+  { id: 4, cat: "FastFood", name: "Beef Burger", desc: "Juicy beef burger", price: 300, img: "" },
+  { id: 5, cat: "FastFood", name: "Beef Burger Cheese", desc: "Beef burger with cheese", price: 350, img: "" },
+  { id: 6, cat: "FastFood", name: "Club Sandwich", desc: "Fresh chicken club sandwich", price: 400, img: "" },
+  { id: 7, cat: "FastFood", name: "Chicken Sandwich", desc: "Delicious chicken sandwich", price: 450, img: "" },
+  { id: 8, cat: "FastFood", name: "BBQ Sandwich", desc: "Chicken sandwich with BBQ flavor", price: 450, img: "" },
+  { id: 9, cat: "FastFood", name: "Plan Fries", desc: "Fries", price: 150, img: "" },
+  { id: 10, cat: "FastFood", name: "Mayo Fries", desc: "Mayo Yammi Fries", price: 200, img: "" },
+  { id: 11, cat: "FastFood", name: "Cheese Fries", desc: "Cheese Yammi Fries", price: 200, img: "" },
 
-  {
-    id: 25,
-    cat: "Pizza",
-    name: "Chicken Tikka (SMALL)",
-    desc: "Chicken tikka pizza",
-    price: 300,
-    img: ""
-  },
-  {
-    id: 26,
-    cat: "Pizza",
-    name: "Chicken Tikka (MEDIUM)",
-    desc: "Chicken tikka pizza",
-    price: 500,
-    img: ""
-  },
-  {
-    id: 27,
-    cat: "Pizza",
-    name: "Chicken Tikka (LARGE)",
-    desc: "Chicken tikka pizza",
-    price: 700,
-    img: ""
-  },
+  { id: 12, cat: "EXTRAS", name: "Paratha (SMALL)", desc: "Yammi", price: 50, img: "" },
+  { id: 13, cat: "EXTRAS", name: "Paratha (LARGE)", desc: "Yammi", price: 100, img: "" },
+  { id: 49, cat: "EXTRAS", name: "Chapati", desc: "Yammi", price: 20, img: "" },
 
-  {
-    id: 28,
-    cat: "Pizza",
-    name: "Chicken Malai (SMALL)",
-    desc: "Chicken malai pizza",
-    price: 300,
-    img: ""
-  },
-  {
-    id: 29,
-    cat: "Pizza",
-    name: "Chicken Malai (MEDIUM)",
-    desc: "Chicken malai pizza",
-    price: 500,
-    img: ""
-  },
-  {
-    id: 30,
-    cat: "Pizza",
-    name: "Chicken Malai (LARGE)",
-    desc: "Chicken malai pizza",
-    price: 700,
-    img: ""
-  },
+  { id: 14, cat: "BBQ", name: "Zinger Roll", desc: "Crispy chicken zinger roll", price: 150, img: "" },
+  { id: 15, cat: "BBQ", name: "Zinger Jumbo Roll", desc: "Jumbo crispy chicken zinger roll", price: 250, img: "" },
+  { id: 16, cat: "BBQ", name: "Boti Roll", desc: "Chicken boti roll", price: 150, img: "" },
+  { id: 17, cat: "BBQ", name: "Kabab Roll", desc: "Chicken kabab roll", price: 150, img: "" },
+  { id: 18, cat: "BBQ", name: "Chicken Roll", desc: "Chicken roll", price: 150, img: "" },
+  { id: 19, cat: "BBQ", name: "Chicken Mayo Garlic Roll", desc: "Chicken roll with mayo garlic sauce", price: 150, img: "" },
+  { id: 20, cat: "BBQ", name: "Chicken Malai Boti Roll", desc: "Creamy chicken malai boti roll", price: 150, img: "" },
+  { id: 21, cat: "BBQ", name: "Chicken Crispy Roll", desc: "Crispy chicken roll", price: 150, img: "" },
 
-  {
-    id: 31,
-    cat: "Pizza",
-    name: "BBQ Chicken (SMALL)",
-    desc: "BBQ chicken pizza",
-    price: 300,
-    img: ""
-  },
-  {
-    id: 32,
-    cat: "Pizza",
-    name: "BBQ Chicken (MEDIUM)",
-    desc: "BBQ chicken pizza",
-    price: 500,
-    img: ""
-  },
-  {
-    id: 33,
-    cat: "Pizza",
-    name: "BBQ Chicken (LARGE)",
-    desc: "BBQ chicken pizza",
-    price: 700,
-    img: ""
-  },
+  { id: 22, cat: "Pizza", name: "Chicken Fajita (SMALL)", desc: "Chicken fajita pizza", price: 300, img: "" },
+  { id: 23, cat: "Pizza", name: "Chicken Fajita (MEDIUM)", desc: "Chicken fajita pizza", price: 500, img: "" },
+  { id: 24, cat: "Pizza", name: "Chicken Fajita (LARGE)", desc: "Chicken fajita pizza", price: 700, img: "" },
 
-  {
-    id: 34,
-    cat: "Pizza",
-    name: "Chicken Supreme (SMALL)",
-    desc: "Chicken supreme pizza",
-    price: 300,
-    img: ""
-  },
-  {
-    id: 35,
-    cat: "Pizza",
-    name: "Chicken Supreme (MEDIUM)",
-    desc: "Chicken supreme pizza",
-    price: 500,
-    img: ""
-  },
-  {
-    id: 36,
-    cat: "Pizza",
-    name: "Chicken Supreme (LARGE)",
-    desc: "Chicken supreme pizza",
-    price: 700,
-    img: ""
-  },
+  { id: 25, cat: "Pizza", name: "Chicken Tikka (SMALL)", desc: "Chicken tikka pizza", price: 300, img: "" },
+  { id: 26, cat: "Pizza", name: "Chicken Tikka (MEDIUM)", desc: "Chicken tikka pizza", price: 500, img: "" },
+  { id: 27, cat: "Pizza", name: "Chicken Tikka (LARGE)", desc: "Chicken tikka pizza", price: 700, img: "" },
 
-  {
-    id: 37,
-    cat: "Pizza",
-    name: "Chicken Shish (SMALL)",
-    desc: "Chicken shish pizza",
-    price: 300,
-    img: ""
-  },
-  {
-    id: 38,
-    cat: "Pizza",
-    name: "Chicken Shish (MEDIUM)",
-    desc: "Chicken shish pizza",
-    price: 500,
-    img: ""
-  },
-  {
-    id: 39,
-    cat: "Pizza",
-    name: "Chicken Shish (LARGE)",
-    desc: "Chicken shish pizza",
-    price: 700,
-    img: ""
-  },
+  { id: 28, cat: "Pizza", name: "Chicken Malai (SMALL)", desc: "Chicken malai pizza", price: 300, img: "" },
+  { id: 29, cat: "Pizza", name: "Chicken Malai (MEDIUM)", desc: "Chicken malai pizza", price: 500, img: "" },
+  { id: 30, cat: "Pizza", name: "Chicken Malai (LARGE)", desc: "Chicken malai pizza", price: 700, img: "" },
 
-  {
-    id: 40,
-    cat: "Pizza",
-    name: "Chicken Cheese (SMALL)",
-    desc: "Chicken cheese pizza",
-    price: 300,
-    img: ""
-  },
-  {
-    id: 41,
-    cat: "Pizza",
-    name: "Chicken Cheese (MEDIUM)",
-    desc: "Chicken cheese pizza",
-    price: 500,
-    img: ""
-  },
-  {
-    id: 42,
-    cat: "Pizza",
-    name: "Chicken Cheese (LARGE)",
-    desc: "Chicken cheese pizza",
-    price: 700,
-    img: ""
-  },
+  { id: 31, cat: "Pizza", name: "BBQ Chicken (SMALL)", desc: "BBQ chicken pizza", price: 300, img: "" },
+  { id: 32, cat: "Pizza", name: "BBQ Chicken (MEDIUM)", desc: "BBQ chicken pizza", price: 500, img: "" },
+  { id: 33, cat: "Pizza", name: "BBQ Chicken (LARGE)", desc: "BBQ chicken pizza", price: 700, img: "" },
 
-  {
-    id: 43,
-    cat: "Pizza",
-    name: "Vegetable (SMALL)",
-    desc: "Fresh vegetable pizza",
-    price: 300,
-    img: ""
-  },
-  {
-    id: 44,
-    cat: "Pizza",
-    name: "Vegetable (MEDIUM)",
-    desc: "Fresh vegetable pizza",
-    price: 500,
-    img: ""
-  },
-  {
-    id: 45,
-    cat: "Pizza",
-    name: "Vegetable (LARGE)",
-    desc: "Fresh vegetable pizza",
-    price: 700,
-    img: ""
-  },
+  { id: 34, cat: "Pizza", name: "Chicken Supreme (SMALL)", desc: "Chicken supreme pizza", price: 300, img: "" },
+  { id: 35, cat: "Pizza", name: "Chicken Supreme (MEDIUM)", desc: "Chicken supreme pizza", price: 500, img: "" },
+  { id: 36, cat: "Pizza", name: "Chicken Supreme (LARGE)", desc: "Chicken supreme pizza", price: 700, img: "" },
 
-  {
-    id: 46,
-    cat: "Pizza",
-    name: "Special (BS Smart) (SMALL)",
-    desc: "Special signature pizza",
-    price: 400,
-    img: ""
-  },
-  {
-    id: 47,
-    cat: "Pizza",
-    name: "Special (BS Smart) (MEDIUM)",
-    desc: "Special signature pizza",
-    price: 700,
-    img: ""
-  },
-  {
-    id: 48,
-    cat: "Pizza",
-    name: "Special (BS Smart) (LARGE)",
-    desc: "Special signature pizza",
-    price: 1000,
-    img: ""
-  }
+  { id: 37, cat: "Pizza", name: "Chicken Shish (SMALL)", desc: "Chicken shish pizza", price: 300, img: "" },
+  { id: 38, cat: "Pizza", name: "Chicken Shish (MEDIUM)", desc: "Chicken shish pizza", price: 500, img: "" },
+  { id: 39, cat: "Pizza", name: "Chicken Shish (LARGE)", desc: "Chicken shish pizza", price: 700, img: "" },
+
+  { id: 40, cat: "Pizza", name: "Chicken Cheese (SMALL)", desc: "Chicken cheese pizza", price: 300, img: "" },
+  { id: 41, cat: "Pizza", name: "Chicken Cheese (MEDIUM)", desc: "Chicken cheese pizza", price: 500, img: "" },
+  { id: 42, cat: "Pizza", name: "Chicken Cheese (LARGE)", desc: "Chicken cheese pizza", price: 700, img: "" },
+
+  { id: 43, cat: "Pizza", name: "Vegetable (SMALL)", desc: "Fresh vegetable pizza", price: 300, img: "" },
+  { id: 44, cat: "Pizza", name: "Vegetable (MEDIUM)", desc: "Fresh vegetable pizza", price: 500, img: "" },
+  { id: 45, cat: "Pizza", name: "Vegetable (LARGE)", desc: "Fresh vegetable pizza", price: 700, img: "" },
+
+  { id: 46, cat: "Pizza", name: "Special (BS Smart) (SMALL)", desc: "Special signature pizza", price: 400, img: "" },
+  { id: 47, cat: "Pizza", name: "Special (BS Smart) (MEDIUM)", desc: "Special signature pizza", price: 700, img: "" },
+  { id: 48, cat: "Pizza", name: "Special (BS Smart) (LARGE)", desc: "Special signature pizza", price: 1000, img: "" }
 ];
-];
-
-const MENU = JSON.parse(JSON.stringify(DEFAULT_MENU));
 
 // =========================================================
 //  HELPERS
@@ -521,7 +178,7 @@ function renderSpecial() {
   const box = $("special");
   const deals = MENU.filter(isDeal);
   if (view !== "deals" || !deals.length || q) { box.className = "special"; box.innerHTML = ""; return; }
-  const m = deals[Math.floor(Date.now() / 864e5) % deals.length];   // a different deal every day
+  const m = deals[Math.floor(Date.now() / 864e5) % deals.length];
   box.className = "special show";
   box.innerHTML = `
     <div class="sp-l"><small>⭐ TODAY'S SPECIAL DEAL</small><h3>${esc(m.name)}</h3><p>${esc(m.desc || "")}</p></div>
@@ -536,14 +193,13 @@ function renderMenu() {
 
   const empty = view === "deals" && !nDeals ? "No deals right now." : "No items found. Try another name.";
 
- $("menu").innerHTML = list.length ? list.map((m, i) =>
-  `<article class="item${isDeal(m) ? " deal" : ""}" style="animation-delay:${Math.min(i, 14) * 45}ms">
-    ${m.img ? `<img class="em" src="${esc(m.img)}" alt="${esc(m.name)}" loading="lazy"
-      onerror="this.style.display='none'">` : ""}
-    <h3>${esc(m.name)}</h3>
-    <p>${esc(m.desc || "")}</p>
-    <span class="price">${fmt(m.price)}</span>
-  </article>`).join("") : `<div class="no-result">${empty}</div>`;
+  $("menu").innerHTML = list.length ? list.map((m, i) =>
+    `<article class="item${isDeal(m) ? " deal" : ""}" style="animation-delay:${Math.min(i, 14) * 45}ms">
+      ${m.img ? `<img class="em" src="${esc(m.img)}" alt="${esc(m.name)}" loading="lazy" onerror="this.style.display='none'">` : ""}
+      <h3>${esc(m.name)}</h3>
+      <p>${esc(m.desc || "")}</p>
+      <span class="price">${fmt(m.price)}</span>
+    </article>`).join("") : `<div class="no-result">${empty}</div>`;
 
   renderSpecial();
 }
@@ -646,7 +302,6 @@ document.addEventListener("pointerdown", e => {
 
   const wrap = $("logoWrap");
 
-  // Food emojis orbiting the logo
   if (wrap && !reduceMotion) {
     const o = document.createElement("div");
     o.className = "orbit";
@@ -661,7 +316,6 @@ document.addEventListener("pointerdown", e => {
     wrap.appendChild(o);
   }
 
-  // Delivery scooter
   if (!reduceMotion) {
     const s = document.createElement("div");
     s.className = "scooter";
@@ -669,7 +323,6 @@ document.addEventListener("pointerdown", e => {
     hero.appendChild(s);
   }
 
-  // Hidden surprise: tap the logo 5 times quickly
   let taps = 0, tapT;
   if (wrap) wrap.addEventListener("click", () => {
     taps++;
@@ -795,7 +448,6 @@ onScroll();
 (function () {
   if (reduceMotion || !canHover) return;
 
-  // Food emoji trail behind the mouse
   const em = ["✨", "🍔", "🍕", "🍟", "⭐"];
   let last = 0;
   document.addEventListener("pointermove", e => {
@@ -813,7 +465,6 @@ onScroll();
     setTimeout(() => s.remove(), 900);
   });
 
-  // Soft golden light following the mouse
   const g = document.createElement("div");
   g.className = "cglow";
   document.body.appendChild(g);
@@ -828,7 +479,6 @@ onScroll();
   })();
 })();
 
-// Search box types its own placeholder
 (function () {
   const inp = $("search");
   if (!inp || reduceMotion) return;
@@ -845,5 +495,4 @@ onScroll();
     }
     setTimeout(loop, d);
   })();
-  
 })();
