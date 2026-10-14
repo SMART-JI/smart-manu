@@ -6,7 +6,7 @@ const RESTAURANT = {
   sub: "Fast Food & Restaurant",
   address: "Sector 5-J, North Karachi, near Kala School",
   map: "https://maps.app.goo.gl/kD19U42DTTHjdht58",
-  phone: "0345-2183819 / 0312-2029588"
+  phone: "03172526006"
 };
 const CURRENCY = "Rs.";
 const LOGO = "assets/img/logo.jpeg";
