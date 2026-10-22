@@ -628,6 +628,7 @@ onScroll();
 // =========================================================
 //  OWNER PANEL: sirf aap menu mein item add kar sakein
 //  Footer ke logo par 5 baar tap -> PIN -> panel
+//  PIN: nabeel79
 // =========================================================
 const ADMIN_HASH = "d1e8e78cd7147a641b63528b9d97838ee0f75036395c9b773ac49eeb319e457e";
 
@@ -661,12 +662,13 @@ const ADMIN_HASH = "d1e8e78cd7147a641b63528b9d97838ee0f75036395c9b773ac49eeb319e
 
     function showPin() {
         body.innerHTML = `<h3>🔐 Owner Login</h3>
-          <input id="pinIn" type="password" placeholder="PIN" autocomplete="off" autocapitalize="none">
+          <input id="pinIn" type="password" placeholder="PIN" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
           <button type="button" class="btn-gold" id="pinGo">Open</button>
           <p class="adm-err" id="pinErr"></p>`;
         const go = async () => {
             if (!(window.crypto && crypto.subtle)) { $("pinErr").textContent = "HTTPS zaroori hai."; return; }
-            if (await sha($("pinIn").value) === ADMIN_HASH) { authed = true; showPanel(); confetti(40); }
+            const pin = $("pinIn").value.trim().toLowerCase();
+            if (await sha(pin) === ADMIN_HASH) { authed = true; showPanel(); confetti(40); }
             else {
                 $("pinErr").textContent = "Galat PIN";
                 box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
