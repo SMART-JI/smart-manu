@@ -160,6 +160,7 @@ const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } ca
 const isDeal = m => m.cat === "Deals";
 const reduceMotion = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
 const canHover = window.matchMedia && matchMedia("(hover:hover)").matches;
+const rnd = (a, b) => a + Math.random() * (b - a);
 
 // =========================================================
 //  STATE
@@ -180,9 +181,30 @@ function toast(msg) {
     let t = $("toast");
     if (!t) { t = document.createElement("div"); t.id = "toast"; document.body.appendChild(t); }
     t.textContent = msg;
+    t.classList.remove("show");
+    void t.offsetWidth;
     t.classList.add("show");
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => t.classList.remove("show"), 1600);
+}
+
+// =========================================================
+//  CONFETTI
+// =========================================================
+function confetti(n = 60) {
+    if (reduceMotion) return;
+    const col = ["#f5b800", "#fff0a8", "#e5483b", "#ffffff", "#0d0d0d"];
+    for (let i = 0; i < n; i++) {
+        const c = document.createElement("i");
+        c.className = "confetti";
+        c.style.left = rnd(0, 100) + "vw";
+        c.style.background = col[i % col.length];
+        c.style.setProperty("--dx", rnd(-160, 160) + "px");
+        c.style.animationDuration = rnd(1.6, 3.2) + "s";
+        c.style.animationDelay = rnd(0, .5) + "s";
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 4200);
+    }
 }
 
 // =========================================================
@@ -389,7 +411,7 @@ document.addEventListener("keydown", e => {
         taps++;
         clearTimeout(tapT);
         tapT = setTimeout(() => { taps = 0; }, 1500);
-        if (taps >= 5) { taps = 0; toast("Good Food, Good Mood 😄"); }
+        if (taps >= 5) { taps = 0; toast("Good Food, Good Mood 😄"); confetti(120); }
     });
 })();
 
@@ -467,25 +489,6 @@ onScroll();
 // =========================================================
 //  EXTRA ANIMATIONS (end level)
 // =========================================================
-const rnd = (a, b) => a + Math.random() * (b - a);
-
-// Confetti baarish
-function confetti(n = 60) {
-    if (reduceMotion) return;
-    const col = ["#f5b800", "#fff0a8", "#e5483b", "#ffffff", "#0d0d0d"];
-    for (let i = 0; i < n; i++) {
-        const c = document.createElement("i");
-        c.className = "confetti";
-        c.style.left = rnd(0, 100) + "vw";
-        c.style.background = col[i % col.length];
-        c.style.setProperty("--dx", rnd(-160, 160) + "px");
-        c.style.animationDuration = rnd(1.6, 3.2) + "s";
-        c.style.animationDelay = rnd(0, .5) + "s";
-        document.body.appendChild(c);
-        setTimeout(() => c.remove(), 4200);
-    }
-}
-
 (function () {
     if (reduceMotion) return;
     const hero = document.querySelector(".hero");
@@ -622,23 +625,11 @@ function confetti(n = 60) {
     });
 })();
 
-// Hero logo 5 tap par bhi confetti
-(function () {
-    const w = $("logoWrap");
-    let n = 0, t;
-    if (w) w.addEventListener("click", () => {
-        n++; clearTimeout(t); t = setTimeout(() => { n = 0; }, 1500);
-        if (n >= 5) { n = 0; confetti(120); }
-    });
-})();
-
 // =========================================================
 //  OWNER PANEL: sirf aap menu mein item add kar sakein
 //  Footer ke logo par 5 baar tap -> PIN -> panel
 // =========================================================
-// PIN ka hash banane ke liye browser console mein chalayein (MERA_PIN ki jagah apna PIN):
-// crypto.subtle.digest("SHA-256",new TextEncoder().encode("MERA_PIN")).then(b=>console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")))
-const ADMIN_HASH = "YAHAN_APNA_HASH_PASTE_KAREIN";
+const ADMIN_HASH = "d1e8e78cd7147a641b63528b9d97838ee0f75036395c9b773ac49eeb319e457e";
 
 (function () {
     const sha = async s => [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)))]
@@ -670,7 +661,7 @@ const ADMIN_HASH = "YAHAN_APNA_HASH_PASTE_KAREIN";
 
     function showPin() {
         body.innerHTML = `<h3>🔐 Owner Login</h3>
-          <input id="pinIn" type="password" inputmode="numeric" placeholder="PIN" autocomplete="off">
+          <input id="pinIn" type="password" placeholder="PIN" autocomplete="off" autocapitalize="none">
           <button type="button" class="btn-gold" id="pinGo">Open</button>
           <p class="adm-err" id="pinErr"></p>`;
         const go = async () => {
