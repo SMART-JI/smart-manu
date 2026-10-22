@@ -463,3 +463,291 @@ if (yr) yr.textContent = new Date().getFullYear();
 // =========================================================
 setView("menu", false);
 onScroll();
+
+// =========================================================
+//  EXTRA ANIMATIONS (end level)
+// =========================================================
+const rnd = (a, b) => a + Math.random() * (b - a);
+
+// Confetti baarish
+function confetti(n = 60) {
+    if (reduceMotion) return;
+    const col = ["#f5b800", "#fff0a8", "#e5483b", "#ffffff", "#0d0d0d"];
+    for (let i = 0; i < n; i++) {
+        const c = document.createElement("i");
+        c.className = "confetti";
+        c.style.left = rnd(0, 100) + "vw";
+        c.style.background = col[i % col.length];
+        c.style.setProperty("--dx", rnd(-160, 160) + "px");
+        c.style.animationDuration = rnd(1.6, 3.2) + "s";
+        c.style.animationDelay = rnd(0, .5) + "s";
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 4200);
+    }
+}
+
+(function () {
+    if (reduceMotion) return;
+    const hero = document.querySelector(".hero");
+    const lw = $("logoWrap");
+
+    // 1) Cursor glow + emoji trail (sirf desktop)
+    if (canHover) {
+        const g = document.createElement("div");
+        g.className = "cglow";
+        document.body.appendChild(g);
+        const EM = ["✨", "🍔", "🍕", "🍟", "⭐", "🔥"];
+        let last = 0;
+        document.addEventListener("pointermove", e => {
+            if (e.pointerType === "touch") return;
+            g.style.opacity = 1;
+            g.style.transform = `translate(${e.clientX}px,${e.clientY}px)`;
+            const now = performance.now();
+            if (now - last < 70) return;
+            last = now;
+            const t = document.createElement("i");
+            t.className = "trail";
+            t.textContent = EM[Math.random() * EM.length | 0];
+            t.style.left = e.clientX + "px";
+            t.style.top = e.clientY + "px";
+            t.style.setProperty("--tx", rnd(-30, 30) + "px");
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 900);
+        }, { passive: true });
+        document.documentElement.addEventListener("mouseleave", () => { g.style.opacity = 0; });
+    }
+
+    // 2) Cards: 3D tilt + chamak
+    const menu = $("menu");
+    let cur = null;
+    const reset = c => { if (c) { c.style.setProperty("--rx", "0deg"); c.style.setProperty("--ry", "0deg"); } };
+    menu.addEventListener("pointermove", e => {
+        if (e.pointerType === "touch") return;
+        const c = e.target.closest(".item");
+        if (c !== cur) { reset(cur); cur = c; }
+        if (!c) return;
+        const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        c.style.setProperty("--ry", ((x - .5) * 14) + "deg");
+        c.style.setProperty("--rx", ((.5 - y) * 14) + "deg");
+        c.style.setProperty("--mx", x * 100 + "%");
+        c.style.setProperty("--my", y * 100 + "%");
+    });
+    menu.addEventListener("pointerleave", () => { reset(cur); cur = null; });
+
+    // 3) Magnetic buttons
+    document.querySelectorAll(".magnetic").forEach(b => {
+        b.addEventListener("pointermove", e => {
+            if (e.pointerType === "touch") return;
+            const r = b.getBoundingClientRect();
+            b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .25}px,${(e.clientY - r.top - r.height / 2) * .35}px)`;
+        });
+        b.addEventListener("pointerleave", () => { b.style.transform = ""; });
+    });
+
+    if (hero && lw) {
+        // 4) Hero logo 3D parallax
+        hero.addEventListener("pointermove", e => {
+            if (e.pointerType === "touch") return;
+            const r = hero.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+            lw.style.transform = `perspective(700px) rotateY(${x * 18}deg) rotateX(${-y * 18}deg)`;
+        });
+        hero.addEventListener("pointerleave", () => { lw.style.transform = ""; });
+
+        // 5) Hero par click = sparks
+        hero.addEventListener("click", e => {
+            if (e.target.closest("a,button")) return;
+            const r = hero.getBoundingClientRect();
+            for (let i = 0; i < 16; i++) {
+                const s = document.createElement("i");
+                s.className = "spark";
+                s.style.left = (e.clientX - r.left) + "px";
+                s.style.top = (e.clientY - r.top) + "px";
+                const a = rnd(0, Math.PI * 2), d = rnd(40, 120);
+                s.style.setProperty("--sx", Math.cos(a) * d + "px");
+                s.style.setProperty("--sy", Math.sin(a) * d + "px");
+                hero.appendChild(s);
+                setTimeout(() => s.remove(), 750);
+            }
+        });
+
+        // 6) Logo ke gird ghoomte emojis
+        const em = ["🍔", "🍕", "🍟", "🥤", "🍗", "🌭"];
+        const o = document.createElement("div");
+        o.className = "orbit";
+        o.innerHTML = em.map((s, i) => {
+            const a = i / em.length * Math.PI * 2;
+            return `<span style="left:${50 + 50 * Math.cos(a)}%;top:${50 + 50 * Math.sin(a)}%"><i>${s}</i></span>`;
+        }).join("");
+        lw.appendChild(o);
+
+        // 7) Delivery scooter
+        const sc = document.createElement("div");
+        sc.className = "scooter";
+        sc.innerHTML = "<i>🛵</i>";
+        hero.appendChild(sc);
+    }
+
+    // 8) Favourite par hearts udte hain
+    menu.addEventListener("click", e => {
+        const f = e.target.closest(".fav");
+        if (!f) return;
+        const r = f.getBoundingClientRect();
+        for (let i = 0; i < 6; i++) {
+            const h = document.createElement("i");
+            h.className = "trail up";
+            h.textContent = "❤️";
+            h.style.left = (r.left + r.width / 2) + "px";
+            h.style.top = (r.top + r.height / 2) + "px";
+            h.style.setProperty("--tx", rnd(-40, 40) + "px");
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 900);
+        }
+    });
+
+    // 9) Deals khulte hi confetti
+    document.addEventListener("click", e => {
+        if (e.target.closest("#dealsBtn,.vs-btn[data-view='deals']")) confetti(70);
+    });
+
+    // 10) Counters badalte hi bump
+    ["cntMenu", "cntDeals"].forEach(id => {
+        const el = $(id);
+        if (!el) return;
+        new MutationObserver(() => {
+            el.classList.remove("bump");
+            void el.offsetWidth;
+            el.classList.add("bump");
+        }).observe(el, { childList: true });
+    });
+})();
+
+// Hero logo 5 tap par bhi confetti
+(function () {
+    const w = $("logoWrap");
+    let n = 0, t;
+    if (w) w.addEventListener("click", () => {
+        n++; clearTimeout(t); t = setTimeout(() => { n = 0; }, 1500);
+        if (n >= 5) { n = 0; confetti(120); }
+    });
+})();
+
+// =========================================================
+//  OWNER PANEL: sirf aap menu mein item add kar sakein
+//  Footer ke logo par 5 baar tap -> PIN -> panel
+// =========================================================
+// PIN ka hash banane ke liye browser console mein chalayein (MERA_PIN ki jagah apna PIN):
+// crypto.subtle.digest("SHA-256",new TextEncoder().encode("MERA_PIN")).then(b=>console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")))
+const ADMIN_HASH = "YAHAN_APNA_HASH_PASTE_KAREIN";
+
+(function () {
+    const sha = async s => [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)))]
+        .map(b => b.toString(16).padStart(2, "0")).join("");
+
+    let custom = lsGet("bsMenuCustom", []);
+    let authed = false;
+
+    const addToMenu = it => {
+        const key = it.cat + "|" + it.name;
+        if (MENU.some(m => m.key === key)) return false;
+        MENU.push({ key, cat: it.cat, name: it.name, desc: it.desc || "", price: it.price, img: it.img || "", custom: true });
+        return true;
+    };
+    const refresh = () => { renderTabs(); renderMenu(); swap(); };
+
+    custom.forEach(addToMenu);
+    renderTabs(); renderMenu();
+
+    const modal = document.createElement("div");
+    modal.className = "modal";
+    modal.innerHTML = `<div class="modal-box" role="dialog" aria-modal="true"><button type="button" class="modal-x" aria-label="Close">✕</button><div id="admBody"></div></div>`;
+    document.body.appendChild(modal);
+    const body = modal.querySelector("#admBody");
+    const box = modal.querySelector(".modal-box");
+    const close = () => modal.classList.remove("open");
+    modal.addEventListener("click", e => { if (e.target === modal || e.target.closest(".modal-x")) close(); });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+
+    function showPin() {
+        body.innerHTML = `<h3>🔐 Owner Login</h3>
+          <input id="pinIn" type="password" inputmode="numeric" placeholder="PIN" autocomplete="off">
+          <button type="button" class="btn-gold" id="pinGo">Open</button>
+          <p class="adm-err" id="pinErr"></p>`;
+        const go = async () => {
+            if (!(window.crypto && crypto.subtle)) { $("pinErr").textContent = "HTTPS zaroori hai."; return; }
+            if (await sha($("pinIn").value) === ADMIN_HASH) { authed = true; showPanel(); confetti(40); }
+            else {
+                $("pinErr").textContent = "Galat PIN";
+                box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
+                $("pinIn").value = "";
+            }
+        };
+        $("pinGo").onclick = go;
+        $("pinIn").onkeydown = e => { if (e.key === "Enter") go(); };
+        setTimeout(() => $("pinIn").focus(), 50);
+    }
+
+    function showPanel() {
+        const cats = [...new Set(MENU.map(m => m.cat))];
+        body.innerHTML = `<h3>🛠️ Menu mein item add karein</h3>
+          <label>Category<select id="aCat">${cats.map(c => `<option>${esc(c)}</option>`).join("")}<option value="__new">➕ Nayi category…</option></select></label>
+          <input id="aNewCat" placeholder="Nayi category ka naam" hidden>
+          <label>Naam<input id="aName" maxlength="60"></label>
+          <label>Description<input id="aDesc" maxlength="120"></label>
+          <label>Price (Rs.)<input id="aPrice" type="number" min="1" inputmode="numeric"></label>
+          <label>Photo link (optional)<input id="aImg" placeholder="assets/img/x.jpg"></label>
+          <button type="button" class="btn-gold" id="aAdd">➕ Add item</button>
+          <p class="adm-err" id="aErr"></p>
+          <h4>Aap ke add kiye hue items (${custom.length})</h4>
+          <ul class="adm-list">${custom.map((c, i) => `<li><span>${esc(c.name)} · ${fmt(c.price)}</span><button type="button" data-i="${i}" aria-label="Delete">🗑️</button></li>`).join("") || "<li>Abhi koi nahi</li>"}</ul>
+          <button type="button" class="btn-ghost" id="aCopy">📋 Code copy karein (sab ke liye)</button>`;
+
+        $("aCat").onchange = () => { $("aNewCat").hidden = $("aCat").value !== "__new"; };
+
+        $("aAdd").onclick = () => {
+            const cat = $("aCat").value === "__new" ? $("aNewCat").value.trim() : $("aCat").value;
+            const name = $("aName").value.trim();
+            const price = Number($("aPrice").value);
+            const img = $("aImg").value.trim();
+            const err = m => { $("aErr").textContent = m; };
+            if (!cat) return err("Category likhein.");
+            if (!name) return err("Naam likhein.");
+            if (!(price > 0)) return err("Sahi price likhein.");
+            if (img && !/^(https?:\/\/|assets\/)/i.test(img)) return err("Photo link http(s):// ya assets/ se shuru ho.");
+            const it = { cat, name, desc: $("aDesc").value.trim(), price, img };
+            if (!addToMenu(it)) return err("Ye item is category mein pehle se hai.");
+            custom.push(it);
+            lsSet("bsMenuCustom", custom);
+            refresh();
+            toast("Item add ho gaya ✅");
+            confetti(50);
+            showPanel();
+        };
+
+        body.querySelectorAll(".adm-list button").forEach(b => b.onclick = () => {
+            const it = custom.splice(+b.dataset.i, 1)[0];
+            const k = MENU.findIndex(m => m.custom && m.key === it.cat + "|" + it.name);
+            if (k >= 0) MENU.splice(k, 1);
+            lsSet("bsMenuCustom", custom);
+            refresh();
+            showPanel();
+        });
+
+        $("aCopy").onclick = () => {
+            const g = {};
+            custom.forEach(c => (g[c.cat] = g[c.cat] || []).push(
+                `        [${JSON.stringify(c.name)}, ${JSON.stringify(c.desc)}, ${c.price}${c.img ? ", " + JSON.stringify(c.img) : ""}]`));
+            const txt = Object.entries(g).map(([c, r]) => `// "${c}" ke andar ye lines daalein:\n` + r.join(",\n")).join("\n\n");
+            (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject())
+                .then(() => toast("Code copy ho gaya 📋"), () => toast("Copy nahi hua"));
+        };
+    }
+
+    // Footer logo 5 baar tap
+    const fl = document.querySelector(".foot-logo");
+    let taps = 0, tt;
+    if (fl) fl.addEventListener("click", () => {
+        taps++; clearTimeout(tt); tt = setTimeout(() => { taps = 0; }, 1500);
+        if (taps >= 5) { taps = 0; authed ? showPanel() : showPin(); modal.classList.add("open"); }
+    });
+})();
