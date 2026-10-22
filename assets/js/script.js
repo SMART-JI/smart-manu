@@ -628,10 +628,9 @@ onScroll();
 // =========================================================
 //  OWNER PANEL: sirf aap menu mein item add kar sakein
 //  Footer ke logo par 5 baar tap -> PIN -> panel
-//  PIN: nabeel79
+//  PIN :112211
 // =========================================================
-const ADMIN_HASH = "d1e8e78cd7147a641b63528b9d97838ee0f75036395c9b773ac49eeb319e457e";
-
+const ADMIN_HASH = "2c4dca7c5a34feb03d70447f026e9abb304cf2571e0d98a60cf937e5ff5f1512";
 (function () {
     const sha = async s => [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)))]
         .map(b => b.toString(16).padStart(2, "0")).join("");
