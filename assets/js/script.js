@@ -626,14 +626,21 @@ onScroll();
 })();
 
 // =========================================================
-//  OWNER PANEL: sirf aap menu mein item add kar sakein
+//  OWNER PANEL (v3): sirf aap menu mein item add kar sakein
 //  Footer ke logo par 5 baar tap -> PIN -> panel
-//  PIN: 112211
 // =========================================================
 const ADMIN_HASH = "2c4dca7c5a34feb03d70447f026e9abb304cf2571e0d98a60cf937e5ff5f1512";
+
 (function () {
     const sha = async s => [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)))]
         .map(b => b.toString(16).padStart(2, "0")).join("");
+
+    // Urdu/Arabic/Persian number ko English number banao, space hatao, chhote letters
+    const normPin = s => String(s)
+        .replace(/[\u0660-\u0669]/g, d => d.charCodeAt(0) - 0x0660)
+        .replace(/[\u06F0-\u06F9]/g, d => d.charCodeAt(0) - 0x06F0)
+        .replace(/\s+/g, "")
+        .toLowerCase();
 
     let custom = lsGet("bsMenuCustom", []);
     let authed = false;
@@ -661,22 +668,35 @@ const ADMIN_HASH = "2c4dca7c5a34feb03d70447f026e9abb304cf2571e0d98a60cf937e5ff5f
 
     function showPin() {
         body.innerHTML = `<h3>🔐 Owner Login</h3>
-          <input id="pinIn" type="password" placeholder="PIN" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
+          <div style="position:relative">
+            <input id="pinIn" type="password" placeholder="PIN" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" style="padding-right:48px">
+            <button type="button" id="pinEye" aria-label="PIN dikhayein" style="position:absolute;right:6px;top:50%;transform:translateY(-35%);background:none;border:0;font-size:1.3rem;line-height:1;padding:6px;cursor:pointer">👁️</button>
+          </div>
           <button type="button" class="btn-gold" id="pinGo">Open</button>
           <p class="adm-err" id="pinErr"></p>`;
+
+        const inp = $("pinIn");
+        $("pinEye").onclick = () => {
+            const show = inp.type === "password";
+            inp.type = show ? "text" : "password";
+            $("pinEye").textContent = show ? "🙈" : "👁️";
+            $("pinEye").setAttribute("aria-label", show ? "PIN chhupayein" : "PIN dikhayein");
+            inp.focus();
+        };
+
         const go = async () => {
-            if (!(window.crypto && crypto.subtle)) { $("pinErr").textContent = "HTTPS zaroori hai."; return; }
-            const pin = $("pinIn").value.trim().toLowerCase();
+            if (!(window.crypto && crypto.subtle)) { $("pinErr").textContent = "HTTPS zaroori hai (https:// se kholein)."; return; }
+            const pin = normPin(inp.value);
             if (await sha(pin) === ADMIN_HASH) { authed = true; showPanel(); confetti(40); }
             else {
-                $("pinErr").textContent = "Galat PIN";
+                $("pinErr").textContent = "Galat PIN (v3) · " + pin.length + " characters likhe";
                 box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
-                $("pinIn").value = "";
+                inp.value = "";
             }
         };
         $("pinGo").onclick = go;
-        $("pinIn").onkeydown = e => { if (e.key === "Enter") go(); };
-        setTimeout(() => $("pinIn").focus(), 50);
+        inp.onkeydown = e => { if (e.key === "Enter") go(); };
+        setTimeout(() => inp.focus(), 50);
     }
 
     function showPanel() {
