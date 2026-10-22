@@ -628,7 +628,7 @@ onScroll();
 // =========================================================
 //  OWNER PANEL: sirf aap menu mein item add kar sakein
 //  Footer ke logo par 5 baar tap -> PIN -> panel
-//  PIN :112211
+//  PIN: 112211
 // =========================================================
 const ADMIN_HASH = "2c4dca7c5a34feb03d70447f026e9abb304cf2571e0d98a60cf937e5ff5f1512";
 (function () {
